@@ -14,15 +14,12 @@ exports.createPaymentQR = async (req, res) => {
  const accountNo = process.env.BANK_ACCOUNT_NO || '0966106874';
  const accountName = encodeURIComponent(process.env.BANK_ACCOUNT_NAME || 'LHU ECOMMERCE STORE');
  const addInfo = encodeURIComponent(`DH ${orderCode}`);
- qrUrl = `https://img.vietqr.io/image/${bankId}-${accountNo}-
-compact2.png?amount=${totalAmount}&addInfo=${addInfo}&accountName=${accountName}`;
+ qrUrl = `https://img.vietqr.io/image/${bankId}-${accountNo}-compact2.png?amount=${totalAmount}&addInfo=${addInfo}&accountName=${accountName}`;
  } else if (paymentMethod === 'MOMO_QR') {
  // 2. Mã QR MoMo
  const momoPhone = process.env.MOMO_PHONE || '0966106874';
  const momoName = encodeURIComponent('LHU STORE');
- const momoData =
-encodeURIComponent(`2|99|${momoPhone}|${momoName}||0|0|${totalAmount}|DH
-${orderCode}|transfer_myqr`);
+ const momoData =encodeURIComponent(`2|99|${momoPhone}|${momoName}||0|0|${totalAmount}|DH${orderCode}|transfer_myqr`);
  qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${momoData}`;
  }
  res.status(200).json({
